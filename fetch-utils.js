@@ -3,6 +3,30 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+export async function createGamer(gamer) {
+    const response = await client
+        .from('console_gamers')
+        .insert(gamer);
+    return checkError(response);    
+}
+
+export async function deleteGamer(gamerId) {
+    const response = await client
+        .from('console_gamers')
+        .delete()
+        .match({ id: gamerId })
+        .single();
+    return checkError(response);    
+}
+
+export async function getConsoles() {
+    const response = await client
+        .from('consoles')
+        .select('*, console_gamers (*)');
+    return checkError(response);    
+}
+
+
 export function getUser() {
     return client.auth.session() && client.auth.session().user;
 }
@@ -37,6 +61,6 @@ export async function logout() {
     return (window.location.href = '../');
 }
 
-// function checkError({ data, error }) {
-//     return error ? console.error(error) : data;
-// }
+function checkError({ data, error }) {
+    return error ? console.error(error) : data;
+}
