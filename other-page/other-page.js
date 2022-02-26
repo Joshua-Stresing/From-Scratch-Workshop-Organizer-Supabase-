@@ -15,7 +15,7 @@ window.addEventListener('load', async () => {
 
 async function fetchAndDisplayConsoles() {
     const consoles = await getConsoles();
-
+    console.log(consoles);
     consoleListEl.textContent = '';
     
     for (let console of consoles) {
@@ -28,8 +28,9 @@ async function fetchAndDisplayConsoles() {
         nameEl.textContent = console.name;
 
         consoleEl.append(nameEl, gamersEl);
+        // console.log(console.gamers);
 
-        for (let gamer of console.console_gamers) {
+        for (let gamer of console.gamers) {
             const gamerEl = document.createElement('p');
 
             gamerEl.classList.add('gamer');
@@ -38,7 +39,7 @@ async function fetchAndDisplayConsoles() {
                 
                 fetchAndDisplayConsoles();
             });
-            gamerEl.textContent = `${gamer.name} : ${gamer.contact}`;
+            gamerEl.textContent = `${gamer.gamer} : ${gamer.contact}`;
 
             gamersEl.append(gamerEl);
         }

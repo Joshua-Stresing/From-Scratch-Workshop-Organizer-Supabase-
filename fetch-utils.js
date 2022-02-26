@@ -5,14 +5,14 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export async function createGamer(gamer) {
     const response = await client
-        .from('console_gamers')
+        .from('gamers')
         .insert(gamer);
     return checkError(response);    
 }
 
 export async function deleteGamer(gamerId) {
     const response = await client
-        .from('console_gamers')
+        .from('gamers')
         .delete()
         .match({ id: gamerId })
         .single();
@@ -22,7 +22,7 @@ export async function deleteGamer(gamerId) {
 export async function getConsoles() {
     const response = await client
         .from('consoles')
-        .select('*, console_gamers (*)');
+        .select('*,gamers (*)');
     return checkError(response);    
 }
 
