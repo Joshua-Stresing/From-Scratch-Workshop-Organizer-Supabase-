@@ -1,7 +1,30 @@
-const SUPABASE_URL = '';
-const SUPABASE_KEY = '';
+const SUPABASE_URL = 'https://hivhhethskjbmsiiuepr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpdmhoZXRoc2tqYm1zaWl1ZXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDQ0MzU1ODUsImV4cCI6MTk2MDAxMTU4NX0.3tUMXfEr4bDY-62YnajMALVtGgKdGMrYB3yDPPU19qM';
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+export async function createGamer(gamer) {
+    const response = await client
+        .from('gamers')
+        .insert(gamer);
+    return checkError(response);    
+}
+
+export async function deleteGamer(gamerId) {
+    const response = await client
+        .from('gamers')
+        .delete()
+        .match({ id: gamerId })
+        .single();
+    return checkError(response);    
+}
+
+export async function getConsoles() {
+    const response = await client
+        .from('consoles')
+        .select('*,gamers (*)');
+    return checkError(response);    
+}
 
 export function getUser() {
     return client.auth.session() && client.auth.session().user;
@@ -37,6 +60,6 @@ export async function logout() {
     return (window.location.href = '../');
 }
 
-// function checkError({ data, error }) {
-//     return error ? console.error(error) : data;
-// }
+function checkError({ data, error }) {
+    return error ? console.error(error) : data;
+}

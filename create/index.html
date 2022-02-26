@@ -18,15 +18,29 @@
 
     </header>
     <button id="logout">Logout</button>
-    <h1>The Consoles</h1>
     <main>
-        <a class="picker" href="../create/">Pick Your Consoles</a>
-        <section class="consoles-list"></section>
+        <a class="picker" href="../other-page/index.html">List Of Consoles</a>
+        <h1>Pick Your Consoles.</h1>
+        <form>
+            <label>
+                Your Name
+                <input name="name"/>
+            </label>
+            <label>
+                Contact
+                <input name="contact"/>
+            </label>
+            <label>
+                <select name="console_id">
+                </select>
+            </label>
+            <button>Add</button>
+        </form>
     </main>
     <footer>
         <div class="copy gutter-right">&copy; 2021 Alchemy Code Lab</div>
     </footer>
-    <script type="module" src="./other-page.js"></script>
+    <script type="module" src="./create.js"></script>
 </body>
 
 </html>
